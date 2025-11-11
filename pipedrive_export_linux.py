@@ -3,6 +3,8 @@ import time
 import requests
 import pandas as pd
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()  # carrega .env da pasta atual
 
 # === Config ===
 API_TOKEN = os.getenv("PIPEDRIVE_API_TOKEN", "COLOQUE_AQUI_O_TOKEN_OU_USE_ENV")
