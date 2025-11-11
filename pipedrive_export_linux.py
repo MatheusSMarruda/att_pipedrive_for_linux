@@ -2,21 +2,29 @@ import os
 import time
 import requests
 import pandas as pd
+
+
+
 from pathlib import Path
+
+
 from dotenv import load_dotenv
-load_dotenv()  # carrega .env da pasta atual
+
+# Load the environment variables from the specified path
+load_dotenv()
+
 
 # === Config ===
 API_TOKEN = os.getenv("PIPEDRIVE_API_TOKEN", "COLOQUE_AQUI_O_TOKEN_OU_USE_ENV")
-BASE_URL = "https://tempoenergia.pipedrive.com/v1"
+BASE_URL = "https://api.pipedrive.com/v1"
 
 # Diretório de saída (Linux)
 BASE_DIR_SAIDA = Path(os.getenv("BASE_DIR_SAIDA", "/srv/tempoenergia/Gestao_DG"))
 BASE_DIR_SAIDA.mkdir(parents=True, exist_ok=True)
 
-ARQ_36 = BASE_DIR_SAIDA / "dados_pipedrive_venda_funil_36.xlsx"
-ARQ_37 = BASE_DIR_SAIDA / "dados_pipedrive_venda_funil_37.xlsx"
-ARQ_38 = BASE_DIR_SAIDA / "dados_pipedrive_venda_funil_38.xlsx"  # Novo funil
+ARQ_36 = os.path.join(BASE_DIR_SAIDA, "dados_pipedrive_venda_funil_36.xlsx")
+ARQ_37 = os.path.join(BASE_DIR_SAIDA, "dados_pipedrive_venda_funil_37.xlsx")
+ARQ_38 = os.path.join(BASE_DIR_SAIDA, "dados_pipedrive_venda_funil_38.xlsx")  # Novo funil
 
 PIPELINES = [36, 37, 38]
 
@@ -39,6 +47,8 @@ def buscar_deals(pipeline_id):
         params["start"] = start
         for tentativa in range(MAX_RETRIES):
             try:
+                print(url)
+                print(params)
                 resp = requests.get(url, params=params, timeout=30)
                 resp.raise_for_status()
                 payload = resp.json()
