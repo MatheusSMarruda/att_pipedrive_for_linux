@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()  # carrega .env da pasta atual
 
 # === Config ===
-API_TOKEN = os.getenv("PIPEDRIVE_API_TOKEN", "COLOQUE_AQUI_O_TOKEN_OU_USE_ENV")
+API_TOKEN = os.getenv("d9a9a935958f6357c3ca9e314b8e7d536a8a4e34", "COLOQUE_AQUI_O_TOKEN_OU_USE_ENV")
 BASE_URL = "https://tempoenergia.pipedrive.com/v1"
 
 # Diretório de saída (Linux)
